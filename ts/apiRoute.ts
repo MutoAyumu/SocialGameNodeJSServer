@@ -20,6 +20,10 @@ exports.Routes = {
 		"/info" : {
 			"/list" : "info#list",
 			"@id%s"   : "info#getInfo",
+		},
+		"/leaderboard" : {
+			"/allLeaderboard" : "leaderboard#allLeaderboard",
+			"/getUserPoint" : "leaderboard#getUserPoint",
 		}
 	},
 	POST: {
@@ -39,6 +43,9 @@ exports.Routes = {
 			"/start" : "quest#start",
 			"/result" : "quest#result",
 			"/continue" : "quest#continue_act"
+		},
+		"/leaderboard" : {
+			"/postReq" : "leaderboard#postReq",
 		}
 	}
 }
