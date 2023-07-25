@@ -11,18 +11,14 @@ export async function index(req: any,res: any,route: any)
 export async function allLeaderboard(req: any,res: any,route: any)
 {
 	//ユーザ情報はsessionの中に全部入ってる
-	let session = await getCache(route.query.session);
-	if(!session)
-	{
-	  return { status: 200 };
-	}
+
 	
 	//検索する
-	const result = await query("SELECT * FROM EVENTPOINT",[]);
+	const result = await query("SELECT * FROM EventPoint",[]);
 	
 	return { 
 		status: 200,
-		user: result
+		leaderboard: result
 	};
 }
 

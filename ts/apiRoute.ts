@@ -53,6 +53,6 @@ exports.Routes = {
 exports.Auth = {
 	UseSessionAuth: true,
 	PassThroughRoute: {
-		GET: ["stat","gacha","info"]
+		GET: ["stat","gacha","info","leaderboard"]
 	}
 };
