@@ -1,3 +1,4 @@
+import { Session } from "inspector";
 import { query } from "../lib/database"
 import { getCache } from "../lib/userCache"
 
@@ -8,11 +9,8 @@ export async function index(req: any,res: any,route: any)
 }
 
 //ランキング全体のデータを取得
-export async function allLeaderboard(req: any,res: any,route: any)
+export async function getAllLeaderboard(req: any,res: any,route: any)
 {
-	//ユーザ情報はsessionの中に全部入ってる
-
-	
 	//検索する
 	const result = await query("SELECT * FROM EventPoint",[]);
 	
@@ -22,37 +20,24 @@ export async function allLeaderboard(req: any,res: any,route: any)
 	};
 }
 
-//自身のデータを取得
-export async function getUserPoint(req: any,res: any,route: any)
+//テーブルにデータが無かったら追加するやつ
+export async function create(req: any,res: any,route: any)
 {
-    let session = await getCache(route.query.session);
-    if(!session)
-    {
-        return { states: 200};
-    }
-
-    const result = await query("SELECT * FROM EVENTPOINT WHERE id = ?",[session.userid]);
-
-    return { 
-		status: 200,
-		user: result
-	};
+	if(!route.query.name) return {};
+	
+	const result = await query("INSERT INTO EventPoint(id, name, point) VALUES(?,?,?)",[route.query.id, route.query.name, 0]);
+	
+	return { status: 200 };
 }
 
-//自身のデータを更新するやつ
-export async function postReq(req: any,res: any,route: any)
+export async function getUser(req: any,res: any,route: any)
 {
-	//ユーザ情報はsessionの中に全部入ってる
-	let session = await getCache(route.query.session);
-	if(!session)
+	const result = await query("SELECT * FROM EventPoint WHERE id = ?",[route.query.id]);
+	
+	if(!result[0])
 	{
-		return { status: 200 };
+		await create(req, res, route);
 	}
 	
-	await query("UPDATE EVENTPOINT SET point WHERE id = ?",[session.userId]);
-	
-	return { 
-		status: 200
-	};
+	return { status: 200 };
 }
-

@@ -22,9 +22,8 @@ exports.Routes = {
 			"@id%s"   : "info#getInfo",
 		},
 		"/leaderboard" : {
-			"/allLeaderboard" : "leaderboard#allLeaderboard",
-			"/getUserPoint" : "leaderboard#getUserPoint",
-		}
+			"/getAllLeaderboard" : "leaderboard#getAllLeaderboard",
+		},
 	},
 	POST: {
 		"/login" : "user#login",
@@ -45,8 +44,9 @@ exports.Routes = {
 			"/continue" : "quest#continue_act"
 		},
 		"/leaderboard" : {
-			"/postReq" : "leaderboard#postReq",
-		}
+			"/create" : "leaderboard#create",
+			"/getUser" : "leaderboard#getUser",
+		},
 	}
 }
 
